@@ -1,0 +1,389 @@
+/* ==========================================================================
+   OSHEKHARO â€” selected work
+   ========================================================================== */
+
+.projects__intro {
+  max-width: 58ch;
+}
+
+/* Equal cards: every project in a row has the same width and height, and the
+   figure is what differentiates them. */
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.75rem);
+  margin-top: clamp(1.25rem, 2.4vw, 1.75rem);
+  align-items: stretch;
+}
+
+/* --------------------------------------------------------------------------
+   Card
+   -------------------------------------------------------------------------- */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  transition:
+    border-color var(--dur-1) var(--ease),
+    background-color var(--dur-1) var(--ease),
+    transform var(--dur-1) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+  background: var(--elevated);
+  transform: translateY(-3px);
+}
+
+/* The one emphasised project is marked by a hairline, not by being a
+   different size. */
+.card--featured::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--accent-line);
+  z-index: 2;
+  border-radius: 4px 4px 0 0;
+}
+
+.card__flag {
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: right;
+}
+
+/* One stretched link per card: no nested interactive elements. */
+.card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: 4px;
+}
+
+.card__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Figure
+   -------------------------------------------------------------------------- */
+
+.art-wrap {
+  position: relative;
+  flex: none;
+  aspect-ratio: 16 / 9;
+  padding: clamp(0.75rem, 1.6vw, 1.15rem);
+  border-bottom: 1px solid var(--border-soft);
+  border-radius: 3px 3px 0 0;
+  background: #0d0d0d;
+  overflow: hidden;
+}
+
+.art {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  font-family: var(--font-mono);
+  color: var(--text-3);
+  transition: transform 600ms var(--ease);
+}
+
+.card:hover .art {
+  transform: scale(1.012);
+}
+
+/* Directory figure */
+.art--directory {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.art__chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.art__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  flex: none;
+}
+
+.art__chrome-label {
+  margin-left: 0.4rem;
+  font-size: 0.56rem;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.art__search {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.art__search-key {
+  font-size: 0.58rem;
+  color: var(--accent);
+}
+
+.art__search-line {
+  height: 1px;
+  width: 58%;
+  background: var(--border-strong);
+}
+
+.art__cells {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.3rem;
+  margin-top: auto;
+}
+
+.art__cells li {
+  aspect-ratio: 1;
+  border: 1px solid var(--border-soft);
+  border-radius: 1px;
+  background: #0f0f0f;
+}
+
+.art__cells li.is-marked {
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+}
+
+/* Chat figure */
+.art--chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.art__msg {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 80%;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 2px;
+  background: #0f0f0f;
+}
+
+.art__msg span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: var(--border-strong);
+}
+
+.art__msg span.is-short {
+  width: 55%;
+}
+
+.art__msg--out {
+  align-self: flex-end;
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+}
+
+.art__msg--out span {
+  background: var(--accent-line);
+}
+
+.art__composer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.art__composer-line {
+  height: 3px;
+  flex: 1;
+  background: var(--border);
+}
+
+/* Workflow figure */
+.art--workflow {
+  height: 100%;
+  width: 100%;
+}
+
+.art__wire path {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.art__node rect {
+  fill: #0d0d0d;
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.art__node.is-active rect {
+  fill: var(--accent-dim);
+  stroke: var(--accent-line);
+}
+
+.art__label text {
+  fill: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+/* Terminal figure */
+.art--terminal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.art__term {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.art__term p {
+  font-size: 0.6rem;
+  line-height: 1.75;
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.art__term p.is-dim {
+  color: var(--text-3);
+}
+
+.art__prompt {
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Card body
+   -------------------------------------------------------------------------- */
+
+.card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: clamp(1.1rem, 2vw, 1.6rem);
+}
+
+.card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.card__index {
+  color: var(--accent);
+}
+
+.card__note {
+  color: var(--text-3);
+  text-align: right;
+}
+
+.card__name {
+  font-size: var(--step-2);
+  letter-spacing: -0.035em;
+  color: var(--text);
+}
+
+.card__tagline {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.card__desc {
+  font-size: 0.855rem;
+  line-height: 1.65;
+  color: var(--text-3);
+}
+
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  transition: color var(--dur-1) var(--ease);
+}
+
+.card:hover .card__cta {
+  color: var(--accent);
+}
+
+.card__cta-icon {
+  font-size: 14px;
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.card:hover .card__cta-icon {
+  transform: translate(2px, -2px);
+}
+
+.projects__foot {
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .projects__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

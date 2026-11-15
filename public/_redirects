@@ -1,0 +1,5 @@
+# OSHEKHARO is a single page with no client-side routes, so no SPA fallback is
+# configured: a missing path should return 404 instead of silently serving the
+# homepage. If you later add routing, uncomment the line below.
+#
+# /*    /index.html   200

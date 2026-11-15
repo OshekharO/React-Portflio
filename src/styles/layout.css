@@ -1,0 +1,394 @@
+/* ==========================================================================
+   OSHEKHARO — navigation, mobile menu, footer
+   ========================================================================== */
+
+/* Scroll progress hairline */
+.progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 120;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  opacity: 0;
+  transition: opacity 300ms var(--ease);
+  pointer-events: none;
+}
+
+.progress.is-visible {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 300ms var(--ease),
+    border-color 300ms var(--ease),
+    backdrop-filter 300ms var(--ease);
+}
+
+.nav.is-scrolled {
+  background: rgba(10, 10, 10, 0.72);
+  border-bottom-color: var(--border);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  flex: none;
+}
+
+/* Visual size stays compact; the hit area reaches the 44px touch target. */
+.brand::after {
+  content: '';
+  position: absolute;
+  inset: -12px -8px;
+}
+
+.brand__mark {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  flex: none;
+}
+
+.brand__dev {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  transform: translateY(1px);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.nav__link {
+  position: relative;
+  padding-block: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  transition: color var(--dur-1) var(--ease);
+}
+
+.nav__link::before {
+  content: '';
+  position: absolute;
+  left: -0.7rem;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateY(-50%) scale(0);
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.nav__link:hover {
+  color: var(--text);
+}
+
+.nav__link.is-active {
+  color: var(--text);
+}
+
+.nav__link.is-active::before {
+  transform: translateY(-50%) scale(1);
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: none;
+}
+
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 36px;
+  padding: 0 0.95rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text);
+  transition:
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease),
+    background-color var(--dur-1) var(--ease);
+}
+
+.nav__cta:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.nav__cta-icon {
+  font-size: 14px;
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.nav__cta:hover .nav__cta-icon {
+  transform: translate(2px, -2px);
+}
+
+.nav__toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-right: -0.5rem;
+  border-radius: 2px;
+  color: var(--text);
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.nav__toggle:hover {
+  background: var(--surface);
+}
+
+.nav__toggle-icon {
+  font-size: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile menu
+   -------------------------------------------------------------------------- */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: calc(var(--header-h) + 1.5rem) var(--gutter) 2rem;
+  background: rgba(10, 10, 10, 0.97);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: menu-in 320ms var(--ease);
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding-block: 0.95rem;
+  border-bottom: 1px solid var(--border-soft);
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 7.5vw, 2.6rem);
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--text-2);
+  transition: color var(--dur-1) var(--ease);
+}
+
+.menu__link:hover,
+.menu__link.is-active {
+  color: var(--text);
+}
+
+.menu__num {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: var(--text-3);
+  flex: none;
+}
+
+.menu__link.is-active .menu__num {
+  color: var(--accent);
+}
+
+.menu__foot {
+  display: grid;
+  gap: 1.1rem;
+  padding-top: 1rem;
+}
+
+.menu__tagline {
+  max-width: 30ch;
+  font-size: 0.9rem;
+  color: var(--text-3);
+}
+
+.menu__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  border-radius: 2px;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 500;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.menu__cta:hover {
+  background: var(--accent-2);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  border-top: 1px solid var(--border);
+  background: #0c0c0c;
+  padding-block: 2.5rem 1.75rem;
+}
+
+.footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem 1.5rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.footer__line {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  color: var(--text);
+}
+
+.footer__signoff {
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  padding-top: 1.4rem;
+}
+
+.footer__copy,
+.footer__stack {
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.footer__social {
+  margin-left: auto;
+}
+
+.footer__top-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  transition:
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease);
+}
+
+.footer__top-button:hover {
+  border-color: var(--accent-line);
+  color: var(--accent);
+}
+
+.footer__top-icon {
+  font-size: 13px;
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.footer__top-button:hover .footer__top-icon {
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer__social {
+    margin-left: 0;
+    order: 3;
+  }
+
+  .footer__top-button {
+    order: 4;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+}

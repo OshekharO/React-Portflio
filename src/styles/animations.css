@@ -1,0 +1,163 @@
+/* ==========================================================================
+   OSHEKHARO — motion
+   All reveal state lives here so reduced-motion can neutralise it in one place.
+   ========================================================================== */
+
+/* Scroll reveal: opacity + a short rise. Fires once (see useInView). */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero entrance: CSS only, no timers in JS. */
+[data-enter] {
+  opacity: 0;
+  animation: enter var(--dur-3) var(--ease) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Proficiency bars: the fill grows only once its row is revealed. */
+.prof__fill {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 900ms var(--ease);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 140ms);
+}
+
+.prof.is-in .prof__fill {
+  transform: scaleX(var(--fill, 0));
+}
+
+/* Ambient loops. Two only: the terminal caret and the status dot. */
+.panel__caret,
+.art__caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  vertical-align: -0.15em;
+  background: var(--accent);
+  animation: blink 1.15s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.panel__pulse {
+  position: relative;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+.panel__pulse::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-line);
+  animation: pulse 2.6s var(--ease-in-out) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Music waveform: a slow, low-amplitude breath rather than a visualiser. */
+.wave span {
+  display: block;
+  width: 2px;
+  height: var(--h);
+  background: var(--border-strong);
+  transform-origin: bottom center;
+  animation: wave 3.6s var(--ease-in-out) infinite;
+  animation-delay: calc(var(--i) * 90ms);
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(0.55);
+    background: var(--border-strong);
+  }
+  50% {
+    transform: scaleY(1);
+    background: var(--accent-line);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion: everything resolves to its final state immediately.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  [data-enter] {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .prof__fill {
+    transform: scaleX(var(--fill, 0));
+  }
+
+  .panel__caret,
+  .art__caret {
+    opacity: 1;
+  }
+}

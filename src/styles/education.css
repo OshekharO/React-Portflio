@@ -1,0 +1,237 @@
+/* ==========================================================================
+   OSHEKHARO â€” education timeline + certification list
+   ========================================================================== */
+
+.education__intro {
+  max-width: 56ch;
+}
+
+/* --------------------------------------------------------------------------
+   Timeline
+   -------------------------------------------------------------------------- */
+
+.timeline {
+  position: relative;
+  margin-top: clamp(1.25rem, 2.4vw, 1.75rem);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline__item {
+  position: relative;
+  padding: 1.6rem 0 1.7rem 2.25rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.timeline__item:first-child {
+  padding-top: 0.4rem;
+}
+
+.timeline__node {
+  position: absolute;
+  left: 0;
+  top: 2rem;
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--accent-line);
+  background: var(--bg);
+}
+
+.timeline__item:first-child .timeline__node {
+  top: 0.85rem;
+}
+
+.timeline__node::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: var(--accent);
+}
+
+.timeline__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.timeline__stage {
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.timeline__short {
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  flex: none;
+}
+
+.timeline__degree {
+  margin-top: 0.4rem;
+  font-size: var(--step-2);
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.timeline__inst {
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+
+.timeline__desc {
+  margin-top: 0.7rem;
+  max-width: 62ch;
+  font-size: 0.89rem;
+  line-height: 1.65;
+  color: var(--text-3);
+}
+
+/* --------------------------------------------------------------------------
+   Certifications
+   -------------------------------------------------------------------------- */
+
+.certs {
+  margin-top: 0;
+}
+
+.certs__head {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 9.5rem 6rem;
+  gap: 1.25rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.cert {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 9.5rem 6rem;
+  gap: 1.25rem;
+  align-items: center;
+  padding-block: 1.15rem;
+  border-bottom: 1px solid var(--border-soft);
+  border-radius: 2px;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.cert:hover {
+  background: var(--surface);
+}
+
+.cert__index {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+
+.cert__title {
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--text);
+  transition: color var(--dur-1) var(--ease);
+}
+
+.cert:hover .cert__title {
+  color: var(--accent);
+}
+
+.cert__issuer {
+  margin-top: 0.1rem;
+  font-size: 0.79rem;
+  color: var(--text-3);
+}
+
+.cert__platform {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.cert__link {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 0.3rem;
+  min-height: 40px;
+  padding-inline: 0.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  transition: color var(--dur-1) var(--ease);
+}
+
+.cert__link-icon {
+  font-size: 14px;
+  color: var(--text-3);
+  transition:
+    transform var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease);
+}
+
+.cert__link:hover {
+  color: var(--accent);
+}
+
+.cert__link:hover .cert__link-icon {
+  transform: translate(2px, -2px);
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .certs__head {
+    display: none;
+  }
+
+  .cert {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.35rem 1rem;
+    padding-block: 1.1rem;
+  }
+
+  .cert__index {
+    grid-row: span 2;
+    padding-top: 0.15rem;
+  }
+
+  .cert__platform {
+    grid-column: 2;
+    font-size: 0.59rem;
+  }
+
+  .cert__link {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 0.35rem;
+    padding-block: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    min-height: 44px;
+  }
+}

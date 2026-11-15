@@ -1,0 +1,403 @@
+/* ==========================================================================
+   OSHEKHARO — hero
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  padding-top: calc(var(--header-h) + clamp(1.5rem, 3.2vw, 3rem));
+  padding-bottom: clamp(1rem, 2vw, 1.75rem);
+  overflow: hidden;
+}
+
+/* One controlled accent bloom behind the headline. */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -18%;
+  left: 50%;
+  width: min(1080px, 130vw);
+  height: 620px;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(197, 244, 103, 0.07), transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Twelve-column technical grid, aligned to the container, fading out downward. */
+.hero__rules {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.03) 0 1px,
+    transparent 1px calc(100% / 12)
+  );
+  background-size: var(--container) 100%;
+  background-position: top center;
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.35) 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.35) 70%, transparent 100%);
+  opacity: 0.75;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: end;
+}
+
+/* --------------------------------------------------------------------------
+   Left: identity
+   -------------------------------------------------------------------------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.eyebrow__mark {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  flex: none;
+}
+
+.hero__title {
+  margin-top: clamp(1rem, 2.2vw, 1.75rem);
+  font-size: var(--step-5);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.hero__line {
+  display: block;
+}
+
+.hero__dot {
+  color: var(--accent);
+}
+
+.hero__alias {
+  margin-top: clamp(1.1rem, 2.4vw, 1.9rem);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  color: var(--text-2);
+}
+
+.hero__descriptor {
+  margin-top: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.hero__descriptor span {
+  color: var(--text-3);
+  padding-inline: 0.15rem;
+}
+
+.hero__desc {
+  margin-top: 1.25rem;
+  max-width: 47ch;
+  font-size: var(--step-1);
+  line-height: 1.62;
+  color: var(--text-2);
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem 0.9rem;
+  margin-top: clamp(1.5rem, 3vw, 2.1rem);
+}
+
+.hero__github {
+  margin-left: 0.15rem;
+}
+
+.hero__tagline {
+  margin-top: clamp(1.4rem, 2.6vw, 2rem);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--text-3);
+}
+
+/* --------------------------------------------------------------------------
+   Right: developer panel
+   -------------------------------------------------------------------------- */
+
+.hero__panel {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  padding: 1rem 1.1rem 0;
+  font-family: var(--font-mono);
+  align-self: end;
+}
+
+.panel__mark {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-color: var(--border-strong);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+}
+
+.panel__mark--tl {
+  top: -1px;
+  left: -1px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.panel__mark--tr {
+  top: -1px;
+  right: -1px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.panel__mark--bl {
+  bottom: -1px;
+  left: -1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.panel__mark--br {
+  bottom: -1px;
+  right: -1px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+.panel__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+}
+
+.panel__path {
+  color: var(--text-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panel__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: none;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.panel__body {
+  display: grid;
+  gap: 0.7rem;
+  padding-block: 0.85rem;
+}
+
+.panel__block {
+  display: grid;
+  gap: 0.05rem;
+}
+
+.panel__line {
+  font-size: 0.73rem;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.panel__prompt {
+  color: var(--accent);
+}
+
+.panel__output {
+  padding-left: 1.2ch;
+  font-size: 0.71rem;
+  color: var(--text-3);
+}
+
+.panel__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-inline: -1.1rem;
+  padding: 0.65rem 1.1rem;
+  border-top: 1px solid var(--border-soft);
+  background: #0d0d0d;
+  font-size: 0.63rem;
+  color: var(--text-3);
+}
+
+.panel__foot-icon {
+  font-size: 13px;
+  color: var(--text-3);
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   Bottom metadata strip
+   -------------------------------------------------------------------------- */
+
+.hero__facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(2rem, 3.6vw, 2.75rem);
+  border-top: 1px solid var(--border);
+}
+
+.hero__fact {
+  padding: 1rem 1.25rem 0 0;
+  border-right: 1px solid var(--border-soft);
+}
+
+.hero__fact:last-child {
+  border-right: 0;
+  padding-right: 0;
+}
+
+.hero__fact dt {
+  margin-bottom: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.hero__fact dd {
+  font-size: 0.86rem;
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(2rem, 5vw, 3rem);
+  }
+
+  .hero__panel {
+    width: 100%;
+    max-width: 460px;
+    justify-self: start;
+  }
+
+  .hero__rules {
+    background-size: 100% 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: calc(var(--header-h) + 1.75rem);
+  }
+
+  .hero__title {
+    letter-spacing: -0.055em;
+    line-height: 0.94;
+  }
+
+  .hero__alias {
+    font-size: 0.74rem;
+  }
+
+  .hero__desc {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .hero__cta {
+    align-items: stretch;
+  }
+
+  /* The terminal panel is a desktop flourish; on a phone the facts strip
+     already carries the same information in a compact form, and dropping the
+     panel keeps the hero close to one screen. */
+  .hero__panel {
+    display: none;
+  }
+
+  .hero__cta .btn {
+    flex: 1 1 100%;
+  }
+
+  .hero__github {
+    margin-left: 0;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .hero__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero__fact {
+    padding: 0.9rem 1rem 0.9rem 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .hero__fact:nth-child(2n) {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .hero__fact:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .panel__body {
+    font-size: 0.9em;
+  }
+
+  .panel__line {
+    font-size: 0.7rem;
+  }
+
+  .panel__output {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero__descriptor {
+    letter-spacing: 0.12em;
+    font-size: 0.62rem;
+  }
+}

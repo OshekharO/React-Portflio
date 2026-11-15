@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OSHEKHARO">
+  <rect width="64" height="64" rx="14" fill="#0A0A0A"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="13.25" fill="none" stroke="#2E2E2E" stroke-width="1.5"/>
+  <path d="M21 45 L39 19" stroke="#C5F467" stroke-width="6"/>
+  <path d="M31 45 L49 19" stroke="#C5F467" stroke-width="6" opacity="0.28"/>
+  <rect x="43" y="41" width="7" height="7" fill="#C5F467"/>
+</svg>

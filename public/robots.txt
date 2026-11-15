@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# No sitemap is served until a production domain is configured.
+# The build writes /sitemap.xml automatically when VITE_SITE_URL is set:
+#   VITE_SITE_URL=https://your-domain.com npm run build
