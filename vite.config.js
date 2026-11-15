@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-import { writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -36,6 +36,30 @@ function sitemap() {
         '',
       ].join('\n')
       writeFileSync(fileURLToPath(new URL('./dist/sitemap.xml', import.meta.url)), xml, 'utf8')
+
+      // The build also runs for the prerender pass (scripts/prerender.mjs), so
+      // the robots.txt edit has to be idempotent rather than appended twice.
+      const robotsPath = fileURLToPath(new URL('./dist/robots.txt', import.meta.url))
+      let robots = readFileSync(robotsPath, 'utf8')
+      const line = `Sitemap: ${siteUrl.replace(/\/$/, '')}/sitemap.xml`
+      if (!robots.includes(line)) {
+        writeFileSync(robotsPath, `${robots.replace(/\s*$/, '')}\n\n${line}\n`, 'utf8')
+      }
+
+      // public/llms.txt holds the source text with relative links so it stays
+      // readable during development. llms.txt consumers expect absolute URLs, so
+      // the build rewrites them. Idempotent: already-absolute links do not match.
+      const llmsPath = fileURLToPath(new URL('./dist/llms.txt', import.meta.url))
+      if (existsSync(llmsPath)) {
+        const absolute = readFileSync(llmsPath, 'utf8').replace(
+          /\]\(\/(?!\/)/g,
+          `](${siteUrl.replace(/\/$/, '')}/`,
+        )
+        if (absolute !== readFileSync(llmsPath, 'utf8')) {
+          writeFileSync(llmsPath, absolute, 'utf8')
+        }
+      }
+
       this.info?.('[sitemap] wrote dist/sitemap.xml')
     },
   }
@@ -55,12 +79,18 @@ function seo() {
     name: 'oshekharo-seo',
     transformIndexHtml(html) {
       if (!siteUrl) return html
-      const url = `${siteUrl.replace(/\/$/, '')}/`
+      const origin = siteUrl.replace(/\/$/, '')
+      const url = `${origin}/`
+      const imageUrl = `${origin}/og-image.png`
+
       return html
         .replace(
           '<!-- canonical:site-url -->',
           `<link rel="canonical" href="${url}" />\n    <meta property="og:url" content="${url}" />`,
         )
+        // Social crawlers require absolute image URLs. Both og:image and
+        // twitter:image point at the same file, so replace every occurrence.
+        .replaceAll('content="/og-image.png"', `content="${imageUrl}"`)
     },
   }
 }

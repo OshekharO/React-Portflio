@@ -7,9 +7,16 @@ Built with React 19 + Vite, plain CSS, and no runtime dependencies beyond React 
 ```bash
 npm install
 npm run dev      # http://127.0.0.1:5173
-npm run build    # → dist/
+npm run build    # vite build → dist/, then the prerender step
 npm run preview  # serve the production build
 ```
+
+The build is two steps. `vite build` emits the bundles, then `postbuild` runs
+`scripts/prerender.mjs`, which renders the app to HTML with `react-dom/server`
+and injects it into `dist/index.html`. The client bundle hydrates that markup
+instead of replacing it, so the page is readable without JavaScript and its
+markup is identical either way. `npm run dev` is unaffected: it renders on the
+client, as usual.
 
 ---
 
@@ -36,6 +43,7 @@ npm run preview  # serve the production build
 | Motion | IntersectionObserver reveals + CSS transitions. No animation library. Full `prefers-reduced-motion` support |
 | Accessibility | Skip link, semantic landmarks, visible focus, ARIA live region for copy-to-clipboard, 44px touch targets |
 | SEO | Title, description, Open Graph, Twitter card, JSON-LD `Person`, `robots.txt`, build-time `sitemap.xml` |
+| Crawlers | Page is prerendered to HTML at build time and hydrated on the client, so AI answer engines that do not run JavaScript can read it. `robots.txt` names the AI crawler groups explicitly |
 | Deployment | `_headers` (CSP, caching, security headers), `_redirects` (no SPA fallback needed), `dist/` output |
 
 ---
@@ -47,12 +55,17 @@ npm run preview  # serve the production build
 ├── index.html                 # metadata, fonts, JSON-LD
 ├── public/
 │   ├── favicon.svg
+│   ├── apple-touch-icon.png   # 180×180 home-screen icon (iOS ignores SVG)
 │   ├── og-image.png           # 1200×630 social card
-│   ├── robots.txt
+│   ├── llms.txt               # summary for AI answer engines
+│   ├── robots.txt             # search + AI crawler rules
 │   ├── _headers               # Cloudflare Pages headers
 │   └── _redirects             # Cloudflare Pages redirects (intentionally empty)
+├── scripts/
+│   └── prerender.mjs          # renders <App /> to HTML after the build
 ├── src/
-│   ├── main.jsx               # style imports + root render
+│   ├── main.jsx               # style imports + hydrateRoot
+│   ├── entry-server.jsx       # renderToString for the prerender step
 │   ├── App.jsx                # section composition
 │   ├── components/
 │   │   ├── layout/            # Navbar, Footer, Container
@@ -145,12 +158,12 @@ The project is a static build: no server runtime, no environment variables at ru
 
 Two things depend on the final domain:
 
-1. **Canonical URL + sitemap.** Both are generated at build time from `VITE_SITE_URL`.
+1. **Canonical URL, absolute social image, sitemap.** These are generated at build time from `VITE_SITE_URL`.
    ```bash
    VITE_SITE_URL=https://your-domain.com npm run build
    ```
    - Without it the build still succeeds and prints a warning; the site ships with **no** canonical tag and **no** `sitemap.xml`, which is better than a canonical pointing at a domain you do not own.
-   - With it, `dist/sitemap.xml` is written and `<link rel="canonical">` plus `og:url` are injected into `index.html`.
+   - With it, `dist/sitemap.xml` is written, `<link rel="canonical">`, `og:url`, and absolute `og:image`/`twitter:image` are injected, a `Sitemap:` line is appended to `dist/robots.txt`, and `dist/llms.txt` links become absolute.
    - In the Cloudflare dashboard, set `VITE_SITE_URL` as a build-time variable (Settings → Builds & deployments → Environment variables).
 
 2. **Social image.** `public/og-image.png` is a designed 1200×630 card. Replace it if you want a photograph or a different composition — keep the filename or update the four `og:image`/`twitter:image` tags in `index.html`.
@@ -158,8 +171,8 @@ Two things depend on the final domain:
 Also worth doing:
 
 - Point the `CNAME`/custom domain at the Pages project.
-- Update `robots.txt` if you ever add a `Sitemap:` line.
 - The `Person` JSON-LD in `index.html` lists only verified facts (name, alias, role, GitHub, LinkedIn). Add to it only what you can stand behind.
+- `public/llms.txt` is a short plain-text summary aimed at AI answer engines. It is a young convention with no guarantee of being read, so it is written to be useful to a human too — update it if the site's sections change.
 
 ---
 
@@ -167,9 +180,11 @@ Also worth doing:
 
 **Verified in this environment**
 
-- `npm run build` succeeds; `dist/` contains a single JS bundle (87 kB gzip), one CSS file (7.8 kB gzip), and the static assets
+- `npm run build` succeeds; `dist/` contains one JS bundle (87 kB gzip), one CSS file (7.9 kB gzip), and the static assets
+- `dist/index.html` carries the full page markup (~55 kB) before any JavaScript runs; hydration produces no mismatch warnings
 - No browser console errors or warnings on load
-- No horizontal overflow at 320, 360, 390, 768, 920, 1024, 1440 px
+- No horizontal overflow at 320, 360, 390, 768, 1024, 1440 px
+- Project cards are equal height within each row at 768/1024/1440 px; the three Personal Side panels are equal at desktop
 - Smooth anchor scrolling lands with the 80px header offset; active nav follows the reading position
 - Mobile menu: opens, traps focus, closes on Escape, restores focus and scroll
 - Copy-email writes to the clipboard and announces success

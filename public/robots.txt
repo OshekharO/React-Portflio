@@ -1,6 +1,78 @@
+# Everything on this site is public: one page, no private data, and being
+# indexed by search engines and AI answer engines is the point. So the default
+# is allow-all, with the crawler groups spelled out rather than relying on
+# `User-agent: *` alone — some bots only read their own stanza.
+#
+# The build appends a `Sitemap:` line to dist/robots.txt when VITE_SITE_URL is
+# set, since a sitemap URL has to be absolute:
+#   VITE_SITE_URL=https://your-domain.com npm run build
+
 User-agent: *
 Allow: /
 
-# No sitemap is served until a production domain is configured.
-# The build writes /sitemap.xml automatically when VITE_SITE_URL is set:
-#   VITE_SITE_URL=https://your-domain.com npm run build
+# --- Search engines ---
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# --- AI / LLM crawlers and answer engines ---
+# These are the reason the site is prerendered instead of shipped client-only.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Deliberately allowed but worth knowing about: Google-Extended controls whether
+# content is used to train Gemini, and is separate from search indexing.
+User-agent: Google-Extended
+Allow: /

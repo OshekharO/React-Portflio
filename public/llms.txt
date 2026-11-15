@@ -1,0 +1,25 @@
+# Saksham Shekher (OshekharO)
+
+> Personal portfolio of Saksham Shekher, a developer and creator. Single page covering his background, skills, projects, education, certifications, and contact details. Built in India; writing in English.
+
+## About
+
+Saksham Shekher also publishes under the name OshekharO, and the site brands itself OSHEKHARO. He describes himself as a developer, creator, and tech enthusiast. Interests include Python, Java, C#, artificial intelligence, prompt engineering, data analysis with Pandas, and open source.
+
+Contact links: GitHub (https://github.com/OshekharO/) and LinkedIn (https://www.linkedin.com/in/oshekher/).
+
+## Pages
+
+- [Home](/): Introduction, one-line positioning, and entry points to the rest of the page.
+- [About](/#about): Background, what he is looking for, and how he works.
+- [Skills](/#skills): Toolkit grouped by area — languages, data, web, and tooling.
+- [Projects](/#projects): Selected work, each with a short description, tech stack, and links.
+- [Education](/#education): Degrees from Ganpat University and Patliputra University.
+- [Certifications](/#certifications): Completed certifications.
+- [Beyond Code](/#beyond): Interests outside of software.
+- [Contact](/#contact): Ways to get in touch.
+
+## Notes
+
+- Content is written in first person on the site; this file refers to the person in third person.
+- All projects and claims are supplied by the site owner; nothing is inferred by a crawler.

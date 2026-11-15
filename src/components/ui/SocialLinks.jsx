@@ -12,7 +12,9 @@ export default function SocialLinks({ items, className = '', showLabels = false 
               className="social__link"
               href={item.href}
               target="_blank"
-              rel="noopener noreferrer"
+              // `me` is the rel value search engines and AI answer engines use
+              // to tie these profiles to the person this page describes.
+              rel="noopener noreferrer me"
               aria-label={`${item.label} (opens in a new tab)`}
             >
               <Icon className="social__icon" aria-hidden="true" />
