@@ -150,6 +150,14 @@ npm run build
 npx wrangler pages deploy dist --project-name oshekharo
 ```
 
+**Direct upload (drag and drop)**
+
+1. `npm run build`
+2. Cloudflare dashboard → **Workers & Pages** → the project → **Create deployment** → upload.
+3. Drag the **`dist`** folder. Not `public/` — `public/` holds source assets only (no `index.html`), and Vite copies it into `dist/` during the build.
+
+Every redeploy is a fresh upload, so rebuild before each one.
+
 The project is a static build: no server runtime, no environment variables at runtime, no secrets in the client bundle.
 
 ---
@@ -158,13 +166,14 @@ The project is a static build: no server runtime, no environment variables at ru
 
 Two things depend on the final domain:
 
-1. **Canonical URL, absolute social image, sitemap.** These are generated at build time from `VITE_SITE_URL`.
+1. **Canonical URL, absolute social image, sitemap.** These are generated at build time from the site URL, which is read from `.env.production` (committed, already set to `https://saksham.eu.org`). A plain `npm run build` therefore produces them; an explicit shell variable still overrides the file.
    ```bash
-   VITE_SITE_URL=https://your-domain.com npm run build
+   npm run build                                            # uses .env.production
+   VITE_SITE_URL=https://your-domain.com npm run build      # overrides it
    ```
-   - Without it the build still succeeds and prints a warning; the site ships with **no** canonical tag and **no** `sitemap.xml`, which is better than a canonical pointing at a domain you do not own.
+   - Without a URL the build still succeeds and prints a warning; the site ships with **no** canonical tag and **no** `sitemap.xml`, which is better than a canonical pointing at a domain you do not own.
    - With it, `dist/sitemap.xml` is written, `<link rel="canonical">`, `og:url`, and absolute `og:image`/`twitter:image` are injected, a `Sitemap:` line is appended to `dist/robots.txt`, and `dist/llms.txt` links become absolute.
-   - In the Cloudflare dashboard, set `VITE_SITE_URL` as a build-time variable (Settings → Builds & deployments → Environment variables).
+   - There is no dashboard equivalent for drag-and-drop deploys: direct upload has no build environment, so the URL has to be present when `npm run build` runs locally.
 
 2. **Social image.** `public/og-image.png` is a designed 1200×630 card. Replace it if you want a photograph or a different composition — keep the filename or update the four `og:image`/`twitter:image` tags in `index.html`.
 

@@ -1,15 +1,24 @@
 import { fileURLToPath, URL } from 'node:url'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url))
 
+// Vite exposes .env values to client code on import.meta.env, not process.env,
+// but both plugins below read process.env.VITE_SITE_URL when they are created.
+// Loading .env.production here is what lets a plain `npm run build` find the site
+// URL; an explicit shell variable still wins.
+if (!process.env.VITE_SITE_URL) {
+  const { VITE_SITE_URL } = loadEnv('production', rootDir, 'VITE_')
+  if (VITE_SITE_URL) process.env.VITE_SITE_URL = VITE_SITE_URL
+}
+
 /**
  * Writes dist/sitemap.xml at build time.
  *
- * A sitemap needs absolute URLs, and the production domain is not fixed yet,
- * so the file is only emitted when VITE_SITE_URL is provided:
+ * A sitemap needs absolute URLs, so the file is only emitted when the site URL
+ * is known. It comes from .env.production (preferred) or the shell:
  *
  *   VITE_SITE_URL=https://example.com npm run build
  *
@@ -68,8 +77,8 @@ function sitemap() {
 /**
  * Canonical URL.
  *
- * A canonical link must be absolute, and the production domain is not fixed
- * yet, so the tag is injected at build time from VITE_SITE_URL. Building
+ * A canonical link must be absolute, so the tag is injected at build time from
+ * the site URL (.env.production, or VITE_SITE_URL in the shell). Building
  * without it produces a correct site with no canonical tag rather than a
  * canonical pointing at a domain that does not exist.
  */
