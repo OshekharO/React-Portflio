@@ -45,25 +45,20 @@
   --mono-1: 0.6875rem; /* 11px — indices, numerals, tags, meta, smallprint */
   --mono-2: 0.75rem; /* 12px — anything clickable or read as a control */
 
-  /* Space */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 2.5rem;
-  --space-8: 3rem;
-  --space-9: 4rem;
-  --space-10: 5rem;
-  --space-11: 6.5rem;
-  --space-12: 8rem;
+  /* Space. Literal rem on a 4px base: the components set their own values
+     (0.4, 0.55, 0.9, 1.35, clamp()…) and a nominal 12-step scale would not
+     have described them. Spacing is therefore not tokenised. */
 
   /* Layout */
   --container: 1240px;
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --section-y: clamp(3.25rem, 5.2vw, 5rem);
   --header-h: 68px;
+
+  /* Radius. The whole interface is two corners: 2px on controls, 4px on
+     surfaces. Pixels, not a scale — the third value would have been a guess. */
+  --radius: 2px;
+  --radius-lg: 4px;
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);

@@ -106,7 +106,7 @@ export default function Navbar() {
 
           <div className="nav__actions">
             <a className="nav__cta" href="#contact">
-              <span>Let&rsquo;s Talk</span>
+              <span>Get in Touch</span>
               <LuArrowUpRight className="nav__cta-icon" aria-hidden="true" />
             </a>
 
@@ -151,7 +151,7 @@ export default function Navbar() {
           <div className="menu__foot">
             <p className="menu__tagline">{site.tagline}</p>
             <a className="menu__cta" href="#contact" onClick={() => setOpen(false)}>
-              <span>Let&rsquo;s Talk</span>
+              <span>Get in Touch</span>
               <LuArrowUpRight aria-hidden="true" />
             </a>
           </div>

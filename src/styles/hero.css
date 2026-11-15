@@ -127,7 +127,7 @@
 .hero__panel {
   position: relative;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius-lg);
   background: var(--surface);
   padding: 1rem 1.1rem 0;
   font-family: var(--font-mono);

@@ -88,14 +88,14 @@
 
 .timeline__inst {
   margin-top: 0.2rem;
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   color: var(--text-2);
 }
 
 .timeline__desc {
   margin-top: 0.7rem;
   max-width: 62ch;
-  font-size: 0.89rem;
+  font-size: 0.9375rem;
   line-height: 1.65;
   color: var(--text-3);
 }
@@ -128,7 +128,7 @@
   align-items: center;
   padding-block: 1.15rem;
   border-bottom: 1px solid var(--border-soft);
-  border-radius: 2px;
+  border-radius: var(--radius);
   transition: background-color var(--dur-1) var(--ease);
 }
 
@@ -174,7 +174,7 @@
   align-items: center;
   justify-self: start;
   gap: 0.3rem;
-  min-height: 40px;
+  min-height: 44px;
   padding-inline: 0.1rem;
   font-family: var(--font-mono);
   font-size: var(--mono-2);

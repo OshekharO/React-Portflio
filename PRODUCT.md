@@ -96,7 +96,7 @@ Reading order matches the narrative: identity → person → capability → proo
 
 ## 10. Website sections
 
-1. **Navigation** — brand, six anchors, "Let's Talk", mobile overlay menu, active-section tracking.
+1. **Navigation** — brand, six anchors, a "Get in Touch" CTA, mobile overlay menu, active-section tracking.
 2. **Hero** — name, alias, descriptor, positioning paragraph, two CTAs, GitHub link, developer metadata panel.
 3. **About** — editorial prose, pull quote, commerce → code path diagram, metadata (location, focus, interests).
 4. **Toolkit** — six capability groups with icons, plus eleven self-assessed proficiency indicators.
@@ -153,10 +153,10 @@ Colour     bg #0A0A0A · surface #111111 · elevated #181818 · border #252525
 Type       display 'Space Grotesk' · body 'Inter' · mono 'JetBrains Mono'
 Scale      --step--1 … --step-5 (clamp)
 Mono       --mono-1 .6875rem (11px, passive) · --mono-2 .75rem (12px, interactive)
-Space      4px base, --space-1 … --space-12
+Space      4px base; literal rem per component (no scale tokens)
 Layout     --container 1240px · --gutter clamp(1.25rem, 4vw, 3.5rem)
 Radius     --radius 2px · --radius-lg 4px
-Motion     --ease  cubic-bezier(.22,1,.36,1) · --dur-1 200ms · --dur-2 600ms
+Motion     --ease  cubic-bezier(.22,1,.36,1) · --dur-1 200ms · --dur-2 520ms
 ```
 
 Nothing functional renders below 11px. Uppercase mono at wide tracking has to be
@@ -173,7 +173,7 @@ smaller value is a defect rather than a scale step.
 | 1024–1439 | Full editorial spread: 12-col grid, asymmetric project composition, sticky about rail |
 | ≥1440 | Container capped at 1240px, type reaches max of its clamp, whitespace increases |
 
-Rules: no horizontal overflow at any width; no hover-only affordances; 44px minimum touch targets; body text never below 15px.
+Rules: no horizontal overflow at any width; no hover-only affordances; 44px minimum touch targets; reading text never below 15px, labels and meta never below 11px.
 
 ## 15. Accessibility expectations
 
