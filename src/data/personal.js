@@ -12,17 +12,18 @@ export const site = {
   tagline: 'Building things, exploring ideas, and learning along the way.',
 }
 
+/* Page order, not alphabetical or importance order: the sections run
+   About → Toolkit → Selected Work, so the links do too. */
 export const nav = [
   { id: 'home', label: 'Home', href: '#home' },
   { id: 'about', label: 'About', href: '#about' },
-  { id: 'projects', label: 'Projects', href: '#projects' },
   { id: 'skills', label: 'Skills', href: '#skills' },
+  { id: 'projects', label: 'Projects', href: '#projects' },
   { id: 'education', label: 'Education', href: '#education' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ]
 
 export const hero = {
-  eyebrow: "Hello, world! I'm",
   nameLines: ['Saksham', 'Shekher.'],
   aliasLine: 'Also known as OshekharO.',
   description:

@@ -6,8 +6,10 @@
   max-width: 58ch;
 }
 
-/* Equal cards: every project in a row has the same width and height, and the
-   figure is what differentiates them. */
+/* Cards sit on a 12-column grid so the section can carry a real hierarchy:
+   the featured project takes the wider half of the first row. Below 1024px the
+   grid collapses to equal halves, and below 760px to one column — there is no
+   hierarchy to express in a single column. */
 .projects__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -40,8 +42,7 @@
   transform: translateY(-3px);
 }
 
-/* The one emphasised project is marked by a hairline, not by being a
-   different size. */
+/* The emphasised project is wider, not merely outlined. */
 .card--featured::before {
   content: '';
   position: absolute;
@@ -54,7 +55,7 @@
 
 .card__flag {
   font-family: var(--font-mono);
-  font-size: 0.59rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
@@ -308,7 +309,7 @@
   justify-content: space-between;
   gap: 1rem;
   font-family: var(--font-mono);
-  font-size: 0.59rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -335,6 +336,7 @@
 }
 
 .card__desc {
+  max-width: 58ch;
   font-size: 0.855rem;
   line-height: 1.65;
   color: var(--text-3);
@@ -354,7 +356,7 @@
   gap: 0.4rem;
   margin-top: 0.85rem;
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: var(--mono-2);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-2);
@@ -385,5 +387,25 @@
 @media (max-width: 760px) {
   .projects__grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The spread: 7/5 on the first row, 6/6 on the second. */
+@media (min-width: 1024px) {
+  .projects__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .card:nth-child(1) {
+    grid-column: span 7;
+  }
+
+  .card:nth-child(2) {
+    grid-column: span 5;
+  }
+
+  .card:nth-child(3),
+  .card:nth-child(4) {
+    grid-column: span 6;
   }
 }

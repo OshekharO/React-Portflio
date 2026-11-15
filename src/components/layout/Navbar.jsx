@@ -4,10 +4,9 @@ import { useActiveSection } from '../../hooks/useActiveSection.js'
 import { useScrolled, useScrollProgress } from '../../hooks/useScroll.js'
 import { nav, site } from '../../data/personal.js'
 
-// Page order, not the order the links happen to be listed in. The sections run
-// About → Skills → Projects on the page (02 / Toolkit before 03 / Selected Work),
-// so the menu follows the page to avoid sending people backwards.
-const sectionIds = ['home', 'about', 'skills', 'projects', 'education', 'contact']
+// `nav` is already in page order (see data/personal.js), so the desktop links
+// and the overlay menu share one list and cannot disagree about the sequence.
+const sectionIds = nav.map((item) => item.id)
 const menuItems = nav
 
 export default function Navbar() {

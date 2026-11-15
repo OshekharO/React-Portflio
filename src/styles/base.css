@@ -96,16 +96,41 @@ p {
   color: #0a0a0a;
 }
 
+/* The caret is part of the page, not the OS. */
+:root {
+  caret-color: var(--accent);
+}
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 1px;
 }
 
-/* Firefox scrollbar, kept quiet. */
+/* Scrollbar. Firefox takes the two-property form; WebKit needs the pseudo
+   elements, and without them Chrome and Edge ship their own. */
 * {
   scrollbar-width: thin;
   scrollbar-color: #2e2e2e transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2e2e2e;
+  border: 3px solid var(--bg);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3d3d3d;
 }
 
 /* --------------------------------------------------------------------------
@@ -131,29 +156,6 @@ p {
   border: 0;
 }
 
-.skip-link {
-  position: fixed;
-  top: 0.75rem;
-  left: 0.75rem;
-  z-index: 200;
-  padding: 0.7rem 1.1rem;
-  background: var(--accent);
-  color: #0a0a0a;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border-radius: 2px;
-  transform: translateY(-200%);
-  transition: transform var(--dur-1) var(--ease);
-}
-
-/* :focus, not :focus-visible — a skip link must appear whenever it is focused,
-   however the focus arrived. */
-.skip-link:focus {
-  transform: translateY(0);
-}
-
 .accent-text {
   color: var(--accent);
 }
@@ -171,7 +173,7 @@ p {
   align-items: center;
   gap: 0.55rem;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: var(--mono-1);
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -240,7 +242,7 @@ p {
   align-items: baseline;
   gap: 0.55rem;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -259,7 +261,7 @@ p {
 
 .section__meta {
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-3);
@@ -390,7 +392,7 @@ p {
   border: 1px solid var(--border);
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 0.63rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-2);
@@ -433,42 +435,7 @@ p {
 
 .social__label {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-/* --------------------------------------------------------------------------
-   Legibility floor
-   Metadata is deliberately small, but on a phone it should not fall below
-   roughly 10.5px. This raises the few labels that would otherwise be smaller.
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 640px) {
-  .brand__dev,
-  .section__meta,
-  .hero__fact dt,
-  .panel__status,
-  .panel__foot,
-  .card__meta,
-  .card__cta,
-  .tag,
-  .skillgroup__label,
-  .prof__value,
-  .cert__index,
-  .cert__platform,
-  .cert__link,
-  .timeline__stage,
-  .timeline__short,
-  .interest__num,
-  .book__label,
-  .book__author,
-  .channel__label,
-  .copy__button,
-  .footer__copy,
-  .footer__stack,
-  .footer__signoff,
-  .footer__top-button,
-  .menu__num {
-    font-size: 0.66rem;
-  }
 }

@@ -39,6 +39,10 @@ Three visual registers, used consistently:
 --step-4  clamp(2.60rem, 1.70rem + 4.20vw, 4.60rem)
 --step-5  clamp(3.40rem, 9.20vw, 8.60rem)   /* hero only */
 
+/* mono scale — the floor is 11px */
+--mono-1  .6875rem   /* 11px: indices, numerals, tags, meta, smallprint */
+--mono-2  .75rem     /* 12px: anything clickable or read as a control */
+
 /* space & layout */
 --gutter clamp(1.25rem, 4vw, 3.5rem)
 --container 1240px
@@ -52,46 +56,46 @@ Three visual registers, used consistently:
 
 Rules: radii are 2px (4px on large panels); nothing is fully round except status dots and the mobile menu icon hit area. Borders are always 1px and always `--border` unless they are the accent.
 
+**Legibility floor.** Uppercase mono at 0.14em tracking is read, not just seen. Nothing functional renders below 11px — not nav links, not tags, not the "Verify" links, not the smallprint in the terminal panel. Two sizes carry the whole mono register (`--mono-1` passive, `--mono-2` interactive); any value under 11px is a defect, not a scale step. The exception is text *inside* the CSS/SVG project figures, which are pictures of interfaces and `aria-hidden`: their type is drawn, not read.
+
 ## 3. Components
 
 | Component | Spec |
 |---|---|
 | **Button** | Height 46px, padding 0 22px, 13px/0.02em body-medium, radius 2px. Primary: accent fill, `#0A0A0A` text, hover `--accent-2` + arrow 3px right. Ghost: transparent, 1px border, text `#F2F0EA`, hover border `--text-3` + bg `--surface`. Mono arrow glyph, never an emoji. |
-| **Section shell** | `<section id aria-labelledby>` with `padding-block: var(--section-y)`, top hairline on all but the first. Header grid: `[num 64px] [title 1fr] [meta auto]`. Num = mono 12px muted; title = display `--step-3`, tracking -0.03em; meta = mono 11px uppercase right-aligned, muted. |
-| **Eyebrow** | Mono 11px, uppercase, 0.18em, `--text-2`, preceded by a 6px lime square or `+`. |
-| **Project card** | 1px border, `--surface` fill, radius 4px, padding 28px. Hover: border `#3A3A3A`, translateY(-3px), visual art shifts 4px. Arrow 16px translates (3px,-3px) on hover. |
-| **Tag** | Mono 10.5px uppercase 0.1em, 1px border `--border`, padding 4px 8px, radius 2px, `--text-2`. |
-| **Skill bar** | 2px track `--border`, fill `--text-2` → accent on reveal; number right-aligned mono 11px muted. |
+| **Section shell** | `<section id aria-labelledby>` with `padding-block: var(--section-y)`, top hairline on all but the first. Header grid: `[num 64px] [title 1fr] [meta auto]`. Num = mono `--mono-1` muted; title = display `--step-3`, tracking -0.03em; meta = mono `--mono-1` uppercase right-aligned, muted. |
+| **Project card** | 1px border, `--surface` fill, radius 4px, padding 28px. On ≥1024px the grid is 12 columns: the featured card spans 7 with its neighbour at 5, and the remaining two sit at 6/6. Hover: border `#3A3A3A`, translateY(-3px), visual art shifts 4px. Arrow 16px translates (3px,-3px) on hover. |
+| **Tag** | Mono `--mono-1` uppercase 0.1em, 1px border `--border`, padding 4px 8px, radius 2px, `--text-2`. |
+| **Skill bar** | 2px track `--border`, fill `--text-2` → accent on reveal. Three named levels — Learning / Working / Comfortable — not percentages: a number implies a measurement nothing here performs. The bar is a relative comparison between rows; the level name carries the meaning. |
 | **Cert row** | Grid `[28px index][1fr title/issuer][140px platform][92px action]`, 1px top border, padding 22px 0, hover bg `--surface` and title → accent. |
 | **Link (inline)** | Underline 1px `--border`, hover `--accent` with `text-decoration-color` transition. |
-| **Nav** | 68px, transparent → `rgba(10,10,10,.72)` + `backdrop-filter: blur(14px)` + bottom hairline after 24px scroll. Links mono 11px uppercase 0.14em; active = `--text` + 4px lime dot before. |
+| **Nav** | 68px, transparent → `rgba(10,10,10,.72)` + `backdrop-filter: blur(14px)` + bottom hairline after 24px scroll. Links mono `--mono-2` uppercase 0.14em; active = `--text` + 4px lime dot before. CTA is a `.btn`, so it is 46px tall like every other button. |
 
 ## 4. Desktop composition (1440)
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│ OSHEKHARO/dev        HOME ABOUT PROJECTS SKILLS EDUCATION CONTACT   [Let's…] │ 68px, hairline on scroll
+│ OSHEKHARO/dev        HOME ABOUT SKILLS PROJECTS EDUCATION CONTACT   [Let's…] │ 68px, hairline on scroll
 ├──────────────────────────────────────────────────────────────────────────────┤
 │  + grid hairlines (12 col, 3% white)                                          │
 │                                                                              │
-│  HELLO, WORLD! I'M                    ┌ ~/oshekharo ─────────── ● available │
-│                                       │ $ whoami                           │
-│  Saksham                              │ saksham shekher                    │
-│  Shekher.                             │ developer · creator · enthusiast   │
-│                                       │ $ cat ./focus                      │
-│  Also known as OshekharO.             │ software development               │
-│  DEVELOPER · CREATOR · TECH ENTHUSIAST│ ai · prompt engineering · oss      │
-│                                       │ $ ▌                                │
-│  I'm a developer with a curious mind  └────────────────────────────────────┘
-│  and a creative side. I build                      [Explore My Work] [Get in Touch]  GitHub ↗
-│  software, explore emerging tech,                   building things, exploring ideas…
-│  experiment, and keep learning.
+│  Saksham                              ┌ ~/oshekharo ─────────── ● available │
+│  Shekher.                             │ $ whoami                           │
+│                                       │ saksham shekher                    │
+│  Also known as OshekharO.             │ developer · creator · enthusiast   │
+│  DEVELOPER · CREATOR · TECH ENTHUSIAST│ $ cat ./focus                      │
+│                                       │ software development               │
+│  I'm a developer with a curious mind  │ ai · prompt engineering · oss      │
+│  and a creative side. I build         │ $ ▌                                │
+│  software, explore emerging tech,     └────────────────────────────────────┘
+│  experiment, and keep learning.                        [Explore My Work] [Get in Touch]  GitHub ↗
+│  Building things, exploring ideas…
 │ ──────────────────────────────────────────────────────────────────────────── │ hairline
 │ FOCUS  Software development   │ STACK  Python · Java · C#  │ STATUS  Open…  │ mono meta strip
 └──────────────────────────────────────────────────────────────────────────────┘
 
 01 / ABOUT ──────────────────────────────────────────────  (meta: BASED IN INDIA)
-│  left rail: heading + metadata list (Location / Focus / Interests)   │  right: prose 62ch
+│  left rail: heading + metadata list (Location / Focus / Interests)   │  right: prose 60ch
 │  "I discovered my real passion lies in writing code, not balance      │  drop cap, accent
 │   sheets."  ← pull quote, --step-2 display                            │  highlight phrases
 │  PATH:  BCom ──▶ MCA ──▶ Developer        (mono diagram, hairline box) │
@@ -100,19 +104,20 @@ Rules: radii are 2px (4px on large panels); nothing is fully round except status
 │  6 groups in 3×2 bordered blocks: LANGUAGES / DATA & VIS / WEB & BACKEND │
 │  DATABASE / TOOLS / BEYOND THE CODE                                       │
 │  ── hairline ──   PROFICIENCY (self-assessed, not a certification)       │
-│  11 bars in 2 columns, each: name ……… [███████░░░] 90%                    │
+│  11 bars in 2 columns, each: name ……… [███████░░░] Comfortable            │
+│  Three named levels, never a percentage.                                  │
 
 03 / SELECTED WORK ─────────────────────────────────────  (meta: 04 PROJECTS)
-│  ┌ 01 FEATURED (6 cols) ──────────┐   ┌ 02 (6 cols) ─────────────────┐ │
-│  │  CSS directory art              │   │  CSS chat art                │ │
-│  │  Web-Indexer                    │   │  Cyber-Ai                    │ │
-│  │  desc · tags · repo ↗           │   │  desc · tags · repo ↗        │ │
-│  └─────────────────────────────────┘   └──────────────────────────────┘ │
-│  ┌ 03 (6 cols) ───────────────────┐   ┌ 04 (6 cols) ─────────────────┐ │
-│  │  CSS workflow art               │   │  CSS terminal art            │ │
-│  │  Open-Jules                     │   │  PowerShell IT Toolkit       │ │
-│  └─────────────────────────────────┘   └──────────────────────────────┘ │
-│  Equal cards per row; the figure is what changes.                       │
+│  ┌ 01 FEATURED (7 cols) ────────────────┐ ┌ 02 (5 cols) ──────────┐ │
+│  │  CSS directory art                   │ │  CSS chat art          │ │
+│  │  Web-Indexer                         │ │  Cyber-Ai              │ │
+│  │  desc · tags · repo ↗                │ │  desc · tags · repo ↗  │ │
+│  └──────────────────────────────────────┘ └────────────────────────┘ │
+│  ┌ 03 (6 cols) ───────────────────────┐ ┌ 04 (6 cols) ────────────┐ │
+│  │  CSS workflow art                   │ │  CSS terminal art        │ │
+│  │  Open-Jules                         │ │  PowerShell IT Toolkit   │ │
+│  └─────────────────────────────────────┘ └──────────────────────────┘ │
+│  7/5 on the first row, 6/6 on the second; the featured project is wider.  │
 
 04 / EDUCATION ─────────────────────────────────────────  (meta: 02 ENTRIES)
 │  vertical hairline, square nodes; two entries: degree, institution, desc, mono tag
@@ -141,11 +146,10 @@ Design intent: **a reading column with an index spine.** The desktop's asymmetry
 ┌──────────────────────────┐
 │ OSHEKHARO/dev      [≡]   │ 60px, hairline on scroll
 ├──────────────────────────┤
-│ HELLO, WORLD! I'M        │
 │ Saksham                  │ hero clamp → 3.4rem, lh .92
 │ Shekher.                 │
 │ Also known as OshekharO. │
-│ DEVELOPER · CREATOR ·    │ wraps to 2 lines, 10px
+│ DEVELOPER · CREATOR ·    │ wraps to 2 lines, 11px
 │ TECH ENTHUSIAST          │
 │                          │
 │ I'm a developer with a   │ 15.5px/1.65
@@ -185,7 +189,7 @@ footer: 3 stacked rows, back-to-top full-width ghost button
 
 | Moment | Behaviour |
 |---|---|
-| Hero entrance | Staggered: eyebrow (0ms) → name lines (80/160ms) → identity (280) → copy (360) → CTAs (440) → panel (520). 12px rise, opacity 0→1, 700ms `--ease`. |
+| Hero entrance | Staggered: name lines (0/90ms) → identity (180) → descriptor (240) → copy (320) → CTAs (400) → panel (440) → tagline (480) → facts (560+). 12px rise, opacity 0→1, 700ms `--ease`. |
 | Section reveal | `translateY(18px)` + opacity, 520ms, fires once at 12% visibility. Children stagger 60ms. |
 | Project cards | 70ms stagger, 3px rise only (less than body copy). |
 | Skill bars | Width 0→value over 900ms, 80ms stagger, only when in view. |

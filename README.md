@@ -41,7 +41,7 @@ client, as usual.
 | Navigation | Sticky header, scroll-progress hairline, active-section tracking, keyboard-accessible mobile overlay menu |
 | Content | All copy lives in `src/data/*.js` — edit text without touching components |
 | Motion | IntersectionObserver reveals + CSS transitions. No animation library. Full `prefers-reduced-motion` support |
-| Accessibility | Skip link, semantic landmarks, visible focus, ARIA live region for copy-to-clipboard, 44px touch targets |
+| Accessibility | Semantic landmarks, visible focus, ARIA live region for copy-to-clipboard, 44px touch targets |
 | SEO | Title, description, Open Graph, Twitter card, JSON-LD `Person`, `robots.txt`, build-time `sitemap.xml` |
 | Crawlers | Page is prerendered to HTML at build time and hydrated on the client, so AI answer engines that do not run JavaScript can read it. `robots.txt` names the AI crawler groups explicitly |
 | Deployment | `_headers` (CSP, caching, security headers), `_redirects` (no SPA fallback needed), `dist/` output |
@@ -121,8 +121,8 @@ Tokens live in `src/styles/variables.css`; the rationale and both compositions a
 ## Accessibility
 
 - Semantic landmarks, one `h1`, ordered `h2`/`h3`
-- Skip link is the first tab stop and appears on `:focus`
 - Focus ring: 2px accent, 3px offset, never removed
+- No functional text below 11px — nav, tags, cert rows and smallprint all sit on the mono floor
 - Mobile menu: `aria-expanded`/`aria-controls`, Escape closes, focus moves in and back out, background scroll locked
 - Copy-email result announced via `aria-live="polite"`
 - Decorative CSS figures are `aria-hidden`; every external link says "opens in a new tab" for screen readers
@@ -180,11 +180,13 @@ Also worth doing:
 
 **Verified in this environment**
 
-- `npm run build` succeeds; `dist/` contains one JS bundle (87 kB gzip), one CSS file (7.9 kB gzip), and the static assets
+- `npm run build` succeeds; `dist/` contains one JS bundle (87 kB gzip), one CSS file (7.8 kB gzip), and the static assets
 - `dist/index.html` carries the full page markup (~55 kB) before any JavaScript runs; hydration produces no mismatch warnings
 - No browser console errors or warnings on load
 - No horizontal overflow at 320, 360, 390, 768, 1024, 1440 px
+- No functional text below 11px at any width (the mono register is `--mono-1` 11px / `--mono-2` 12px)
 - Project cards are equal height within each row at 768/1024/1440 px; the three Personal Side panels are equal at desktop
+- Design-detector scan of the rendered page: 2 findings, both intentional (the hero caret blink and the body grain) — down from 125 before the type floor was applied
 - Smooth anchor scrolling lands with the 80px header offset; active nav follows the reading position
 - Mobile menu: opens, traps focus, closes on Escape, restores focus and scroll
 - Copy-email writes to the clipboard and announces success

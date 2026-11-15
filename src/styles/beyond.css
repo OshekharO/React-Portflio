@@ -62,7 +62,7 @@
   flex: none;
   padding-top: 0.1rem;
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.1em;
   color: var(--accent);
 }
@@ -168,7 +168,7 @@
 
 .book__label {
   font-family: var(--font-mono);
-  font-size: 0.57rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-3);
@@ -184,7 +184,7 @@
 
 .book__author {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-3);

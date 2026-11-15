@@ -35,7 +35,7 @@
 
 .skillgroup__label {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: var(--mono-1);
   font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -107,7 +107,7 @@
 
 .prof {
   display: grid;
-  grid-template-columns: 8.5rem minmax(0, 1fr) 2.6rem;
+  grid-template-columns: 8.5rem minmax(0, 1fr) 5.4rem;
   align-items: center;
   gap: 0.85rem;
   padding-block: 0.4rem;
@@ -142,7 +142,7 @@
 
 .prof__value {
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.02em;
   color: var(--text-3);
   text-align: right;
@@ -176,15 +176,15 @@
   }
 
   .prof {
-    grid-template-columns: 8.75rem minmax(0, 1fr) 2.5rem;
+    grid-template-columns: 8.75rem minmax(0, 1fr) 5.2rem;
     gap: 0.7rem;
   }
 }
 
 @media (max-width: 360px) {
-  /* Not enough room for name + bar + number on one line: stack the bar under. */
+  /* Not enough room for name + bar + level on one line: stack the bar under. */
   .prof {
-    grid-template-columns: minmax(0, 1fr) 2.4rem;
+    grid-template-columns: minmax(0, 1fr) 5.2rem;
     row-gap: 0.35rem;
     padding-block: 0.5rem;
   }

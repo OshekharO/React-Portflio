@@ -2,8 +2,10 @@
  * Toolkit content.
  *
  * `icon` values map to a component in components/ui/techIcons.js — data stays
- * free of JSX. `proficiency` percentages are the owner's own assessment and are
- * labelled as such in the UI; they are not a certification or a test score.
+ * free of JSX. `level` is the owner's own assessment and is labelled as such in
+ * the UI; it is not a certification, a test score, or a measurement. The three
+ * levels are deliberately coarse: a percentage invites a reading of measured
+ * competence that nothing here supports.
  */
 
 export const skills = {
@@ -70,18 +72,28 @@ export const skillGroups = [
   },
 ]
 
+/**
+ * Three named levels, in order. `fill` only sets how far the bar draws; it is a
+ * relative comparison between rows, not a score.
+ */
+export const proficiencyLevels = {
+  learning: { label: 'Learning', fill: 0.38 },
+  working: { label: 'Working', fill: 0.68 },
+  comfortable: { label: 'Comfortable', fill: 1 },
+}
+
 export const proficiencies = [
-  { name: 'Python', value: 90 },
-  { name: 'Pandas', value: 85 },
-  { name: 'Bootstrap', value: 88 },
-  { name: 'Prompt Engineering', value: 82 },
-  { name: 'GitHub', value: 92 },
-  { name: 'Git', value: 85 },
-  { name: 'Java', value: 75 },
-  { name: 'Matplotlib', value: 80 },
-  { name: 'Node.js', value: 72 },
-  { name: 'MySQL', value: 78 },
-  { name: 'C#', value: 70 },
+  { name: 'Python', level: 'comfortable' },
+  { name: 'Pandas', level: 'comfortable' },
+  { name: 'Bootstrap', level: 'comfortable' },
+  { name: 'Prompt Engineering', level: 'working' },
+  { name: 'GitHub', level: 'comfortable' },
+  { name: 'Git', level: 'comfortable' },
+  { name: 'Java', level: 'working' },
+  { name: 'Matplotlib', level: 'working' },
+  { name: 'Node.js', level: 'working' },
+  { name: 'MySQL', level: 'working' },
+  { name: 'C#', level: 'working' },
 ]
 
 export const proficiencyNote =

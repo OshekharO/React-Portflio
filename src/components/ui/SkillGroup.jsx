@@ -1,5 +1,6 @@
 import Reveal from './Reveal.jsx'
 import { techIcons } from './techIcons.js'
+import { proficiencyLevels } from '../../data/skills.js'
 
 /**
  * One capability group: a bordered block with a mono label, a plain-language
@@ -30,22 +31,24 @@ export default function SkillGroup({ group, delay = 0 }) {
 }
 
 /**
- * A thin bar, not a ring: percentages read as an annotation rather than a score.
- * The bar is decorative; the number carries the value for assistive tech.
+ * A thin bar, not a ring. The bar is a relative comparison between rows; the
+ * level name carries the value for everyone, including assistive tech.
  */
 export function ProficiencyBar({ item, delay = 0 }) {
+  const level = proficiencyLevels[item.level] ?? proficiencyLevels.working
+
   return (
     <Reveal
       as="li"
       className="prof"
       delay={delay}
-      style={{ '--value': `${item.value}%`, '--fill': item.value / 100 }}
+      style={{ '--fill': level.fill }}
     >
       <span className="prof__name">{item.name}</span>
       <span className="prof__track" aria-hidden="true">
         <span className="prof__fill" />
       </span>
-      <span className="prof__value">{item.value}%</span>
+      <span className="prof__value">{level.label}</span>
     </Reveal>
   )
 }

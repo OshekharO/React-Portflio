@@ -55,26 +55,7 @@
    Left: identity
    -------------------------------------------------------------------------- */
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-2);
-}
-
-.eyebrow__mark {
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  flex: none;
-}
-
 .hero__title {
-  margin-top: clamp(1rem, 2.2vw, 1.75rem);
   font-size: var(--step-5);
   font-weight: 500;
   line-height: 0.9;
@@ -100,7 +81,7 @@
 .hero__descriptor {
   margin-top: 0.55rem;
   font-family: var(--font-mono);
-  font-size: 0.67rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-2);
@@ -134,7 +115,7 @@
 .hero__tagline {
   margin-top: clamp(1.4rem, 2.6vw, 2rem);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   letter-spacing: 0.02em;
   color: var(--text-3);
 }
@@ -198,7 +179,7 @@
   gap: 1rem;
   padding-bottom: 0.7rem;
   border-bottom: 1px solid var(--border-soft);
-  font-size: 0.66rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.04em;
 }
 
@@ -214,7 +195,7 @@
   align-items: center;
   gap: 0.45rem;
   flex: none;
-  font-size: 0.58rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
@@ -232,7 +213,7 @@
 }
 
 .panel__line {
-  font-size: 0.73rem;
+  font-size: var(--step--1);
   line-height: 1.6;
   color: var(--text-2);
 }
@@ -243,7 +224,7 @@
 
 .panel__output {
   padding-left: 1.2ch;
-  font-size: 0.71rem;
+  font-size: var(--mono-2);
   color: var(--text-3);
 }
 
@@ -256,7 +237,7 @@
   padding: 0.65rem 1.1rem;
   border-top: 1px solid var(--border-soft);
   background: #0d0d0d;
-  font-size: 0.63rem;
+  font-size: var(--mono-2);
   color: var(--text-3);
 }
 
@@ -290,7 +271,7 @@
 .hero__fact dt {
   margin-bottom: 0.3rem;
   font-family: var(--font-mono);
-  font-size: 0.59rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-3);
@@ -346,11 +327,17 @@
     align-items: stretch;
   }
 
-  /* The terminal panel is a desktop flourish; on a phone the facts strip
-     already carries the same information in a compact form, and dropping the
-     panel keeps the hero close to one screen. */
+  /* The panel stays on a phone: it is the most product-specific thing in the
+     hero, and the facts strip below it carries different information (location,
+     stack) rather than the same. It just tightens. */
   .hero__panel {
-    display: none;
+    max-width: none;
+    padding: 0.85rem 0.95rem 0;
+  }
+
+  .hero__panel .panel__foot {
+    margin-inline: -0.95rem;
+    padding: 0.6rem 0.95rem;
   }
 
   .hero__cta .btn {
@@ -381,23 +368,10 @@
   .hero__fact:nth-last-child(-n + 2) {
     border-bottom: 0;
   }
-
-  .panel__body {
-    font-size: 0.9em;
-  }
-
-  .panel__line {
-    font-size: 0.7rem;
-  }
-
-  .panel__output {
-    font-size: 0.68rem;
-  }
 }
 
 @media (max-width: 360px) {
   .hero__descriptor {
     letter-spacing: 0.12em;
-    font-size: 0.62rem;
   }
 }

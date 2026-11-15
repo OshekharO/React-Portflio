@@ -38,6 +38,13 @@
   --step-4: clamp(2.6rem, 1.7rem + 4.2vw, 4.6rem);
   --step-5: clamp(3.4rem, 9.2vw, 8.6rem);
 
+  /* Mono scale. The floor is 11px: uppercase mono at 0.14em tracking is read,
+     not just seen, and anything under 11px turns a label into texture. One
+     passive micro tier and one interactive tier, so the sizes that remain are
+     choices rather than leftovers. */
+  --mono-1: 0.6875rem; /* 11px — indices, numerals, tags, meta, smallprint */
+  --mono-2: 0.75rem; /* 12px — anything clickable or read as a control */
+
   /* Space */
   --space-1: 0.25rem;
   --space-2: 0.5rem;

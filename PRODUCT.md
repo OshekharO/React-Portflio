@@ -152,11 +152,16 @@ Colour     bg #0A0A0A · surface #111111 · elevated #181818 · border #252525
            accent #C5F467 · accent-2 #A3D957
 Type       display 'Space Grotesk' · body 'Inter' · mono 'JetBrains Mono'
 Scale      --step--1 … --step-5 (clamp)
+Mono       --mono-1 .6875rem (11px, passive) · --mono-2 .75rem (12px, interactive)
 Space      4px base, --space-1 … --space-12
 Layout     --container 1240px · --gutter clamp(1.25rem, 4vw, 3.5rem)
 Radius     --radius 2px · --radius-lg 4px
 Motion     --ease  cubic-bezier(.22,1,.36,1) · --dur-1 200ms · --dur-2 600ms
 ```
+
+Nothing functional renders below 11px. Uppercase mono at wide tracking has to be
+read, not just seen, so the mono register has two sizes and a hard floor; a
+smaller value is a defect rather than a scale step.
 
 ## 14. Responsive behaviour
 

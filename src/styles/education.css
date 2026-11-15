@@ -65,7 +65,7 @@
 
 .timeline__stage {
   font-family: var(--font-mono);
-  font-size: 0.59rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-3);
@@ -73,7 +73,7 @@
 
 .timeline__short {
   font-family: var(--font-mono);
-  font-size: 0.59rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.18em;
   color: var(--accent);
   flex: none;
@@ -115,7 +115,7 @@
   padding-bottom: 0.7rem;
   border-bottom: 1px solid var(--border);
   font-family: var(--font-mono);
-  font-size: 0.59rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-3);
@@ -138,7 +138,7 @@
 
 .cert__index {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.1em;
   color: var(--text-3);
 }
@@ -163,7 +163,7 @@
 
 .cert__platform {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: var(--mono-1);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-2);
@@ -177,7 +177,7 @@
   min-height: 40px;
   padding-inline: 0.1rem;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: var(--mono-2);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-2);
@@ -223,7 +223,7 @@
 
   .cert__platform {
     grid-column: 2;
-    font-size: 0.59rem;
+    font-size: var(--mono-1);
   }
 
   .cert__link {
